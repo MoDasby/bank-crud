@@ -6,7 +6,7 @@ import {
   FetchFunction,
 } from "relay-runtime";
 
-const HTTP_ENDPOINT = import.meta.env.VITE_BACKEND_URL;
+const HTTP_ENDPOINT = "http://localhost:4000/graphql";
 
 const fetchFn: FetchFunction = async (request, variables) => {
   const loginData = localStorage.getItem("loginData") || ""

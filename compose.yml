@@ -1,7 +1,7 @@
 services:
   api:
     build: 
-      context: .
+      context: ./backend
     depends_on:
       mongo:
         condition: service_healthy
@@ -23,3 +23,11 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  site:
+    build: 
+      context: ./frontend
+    environment:
+      - VITE_BACKEND_URL=http://api:4000/graphql
+    ports:
+      - 5000:5000

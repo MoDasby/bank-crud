@@ -1,0 +1,28 @@
+# Estágio de build
+FROM node:alpine AS build
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm i
+
+COPY . .
+
+RUN npm run build
+
+FROM node:alpine AS runner
+
+WORKDIR /app
+
+COPY --from=build /app/dist /app/dist
+COPY package*.json /app
+COPY server.js /app
+
+ENV VITE_BACKEND_URL=${VITE_BACKEND_URL}
+
+RUN npm i --production
+
+EXPOSE 5000
+
+CMD ["node", "server.js"]
