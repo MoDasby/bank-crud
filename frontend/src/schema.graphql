@@ -1,0 +1,32 @@
+schema {
+  query: Query
+  mutation: mutation
+}
+
+type Query {
+  account: Account
+  transactions: [Transaction]
+}
+
+type Account {
+  name: String
+  email: String
+  availableBalance: Float
+}
+
+type Transaction {
+  amount: Float
+  sender: Account
+  receiver: TransactionAccount
+}
+
+type TransactionAccount {
+  name: String
+  email: String
+}
+
+type mutation {
+  account(email: String, name: String, password: String): Account
+  transaction(amount: Float, receiver_email: String): Transaction
+  updateBalance(amount: Float): Transaction
+}
